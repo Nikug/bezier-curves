@@ -22,8 +22,10 @@ const mouseMoveSetup = () => {
     const clampedX = clamp(x, padding, width + padding);
     const clampedY = clamp(y, padding, height + padding);
     const mouseDown = event.buttons === 1;
+    let isDragging = false;
 
     for (const handleId in handles) {
+      if (isDragging) break;
       const handle = handles[handleId];
       const distanceToHandle = Math.hypot(
         x - handle.position.x,
@@ -36,10 +38,12 @@ const mouseMoveSetup = () => {
           handle.size = pointHoveredWidth;
           handle.position.x = clampedX;
           handle.position.y = clampedY;
+          isDragging = true;
         } else {
           handle.state = "hovering";
           handle.size = pointHoveredWidth;
         }
+        break;
       } else {
         handle.state = "chilling";
         handle.size = pointWidth;
@@ -47,6 +51,7 @@ const mouseMoveSetup = () => {
     }
 
     for (const handleId in bezierHandles) {
+      if (isDragging) break;
       const handle = bezierHandles[handleId];
       const distanceToHandle = Math.hypot(
         x - handle.position.x,
@@ -63,6 +68,7 @@ const mouseMoveSetup = () => {
           handle.state = "hovering";
           handle.size = pointHoveredWidth;
         }
+        break;
       } else {
         handle.state = "chilling";
         handle.size = pointWidth;
