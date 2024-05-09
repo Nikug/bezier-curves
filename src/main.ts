@@ -1,7 +1,9 @@
 import "./style.css";
 import { initCanvas } from "./canvas";
 import { setupListeners } from "./events";
+import { updateText } from "./text";
+import { getNormalisedHandles } from "./state";
 
-const text = document.getElementById("variables") as HTMLParagraphElement;
 initCanvas();
+updateText(getNormalisedHandles());
 setupListeners();

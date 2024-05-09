@@ -11,6 +11,7 @@ export const height = canvas.height - padding * 2;
 
 export const handles: Record<number, Handle> = {
   0: {
+    id: "p0",
     state: "chilling",
     size: pointWidth,
     position: {
@@ -19,6 +20,7 @@ export const handles: Record<number, Handle> = {
     },
   },
   1: {
+    id: "p1",
     state: "chilling",
     size: pointWidth,
     position: {
@@ -30,6 +32,7 @@ export const handles: Record<number, Handle> = {
 
 export const bezierHandles: Record<number, Handle> = {
   0: {
+    id: "b0",
     state: "chilling",
     size: pointWidth,
     position: {
@@ -38,6 +41,7 @@ export const bezierHandles: Record<number, Handle> = {
     },
   },
   1: {
+    id: "b1",
     state: "chilling",
     size: pointWidth,
     position: {
@@ -45,4 +49,32 @@ export const bezierHandles: Record<number, Handle> = {
       y: height / 2 + padding,
     },
   },
+};
+
+const copyHandle = (handle: Handle): Handle => {
+  return {
+    id: handle.id,
+    state: handle.state,
+    size: handle.size,
+    position: {
+      x: handle.position.x,
+      y: handle.position.y,
+    },
+  };
+};
+
+export const getNormalisedHandles = () => {
+  const normalisedHandles: Handle[] = [];
+  const allHandles = [
+    ...Object.values(handles),
+    ...Object.values(bezierHandles),
+  ];
+  for (const handle of allHandles) {
+    const copy = copyHandle(handle);
+    copy.position.x = (copy.position.x - padding) / width;
+    copy.position.y = (copy.position.y - padding) / height;
+    normalisedHandles.push(copy);
+  }
+
+  return normalisedHandles;
 };

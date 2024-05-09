@@ -2,6 +2,7 @@ import { updateCanvas } from "./canvas";
 import {
   bezierHandles,
   canvas,
+  getNormalisedHandles,
   handles,
   height,
   padding,
@@ -9,6 +10,7 @@ import {
   pointWidth,
   width,
 } from "./state";
+import { updateText } from "./text";
 import { clamp } from "./utils";
 
 export const setupListeners = () => {
@@ -76,5 +78,6 @@ const mouseMoveSetup = () => {
     }
 
     updateCanvas();
+    updateText(getNormalisedHandles());
   });
 };
