@@ -6,6 +6,7 @@ import {
   handles,
   height,
   initHandles,
+  lines,
   padding,
   pointHoveredWidth,
   pointWidth,
@@ -13,7 +14,7 @@ import {
   width,
 } from "./state";
 import { updateText } from "./text";
-import { clamp } from "./utils";
+import { clamp, quantize } from "./utils";
 
 export const setupListeners = () => {
   mouseMoveSetup();
@@ -28,6 +29,8 @@ const mouseMoveSetup = () => {
     const y = event.offsetY;
     const clampedX = clamp(x, padding, width + padding);
     const clampedY = clamp(y, padding, height + padding);
+    const quantizeStepX = width / lines / 2;
+    const quantizeStepY = height / lines / 2;
     const mouseDown = event.buttons === 1;
     let isDragging = false;
 
@@ -43,8 +46,12 @@ const mouseMoveSetup = () => {
         if (mouseDown) {
           handle.state = "dragging";
           handle.size = pointHoveredWidth;
-          handle.position.x = clampedX;
-          handle.position.y = clampedY;
+          handle.position.x = settings.snap
+            ? quantize(clampedX, quantizeStepX)
+            : clampedX;
+          handle.position.y = settings.snap
+            ? quantize(clampedY, quantizeStepY)
+            : clampedY;
           isDragging = true;
         } else {
           handle.state = "hovering";
@@ -69,8 +76,12 @@ const mouseMoveSetup = () => {
         if (mouseDown) {
           handle.state = "dragging";
           handle.size = pointHoveredWidth;
-          handle.position.x = clampedX;
-          handle.position.y = clampedY;
+          handle.position.x = settings.snap
+            ? quantize(clampedX, quantizeStepX)
+            : clampedX;
+          handle.position.y = settings.snap
+            ? quantize(clampedY, quantizeStepY)
+            : clampedY;
         } else {
           handle.state = "hovering";
           handle.size = pointHoveredWidth;

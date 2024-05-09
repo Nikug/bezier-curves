@@ -15,6 +15,10 @@ export const vector2Lerp = (a: Vector2, b: Vector2, t: number) => {
   };
 };
 
+export const quantize = (value: number, step: number) => {
+  return Math.round(value / step) * step;
+};
+
 export const bezierCubic = (
   p1: Vector2,
   p2: Vector2,

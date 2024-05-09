@@ -1,4 +1,4 @@
-import { Handle } from "./types";
+import { Handle, Settings } from "./types";
 
 export const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 
@@ -12,7 +12,7 @@ export const bezierResolution = 50;
 
 export const handles: Record<number, Handle> = {};
 export const bezierHandles: Record<number, Handle> = {};
-export const settings = {
+export const settings: Settings = {
   showNames: false,
   snap: false,
 };
