@@ -11,8 +11,11 @@ export const height = canvas.height - padding * 2;
 export const bezierResolution = 50;
 
 export const handles: Record<number, Handle> = {};
-
 export const bezierHandles: Record<number, Handle> = {};
+export const settings = {
+  showNames: false,
+  snap: false,
+};
 
 export const initHandles = () => {
   handles[0] = {

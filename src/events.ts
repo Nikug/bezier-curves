@@ -9,6 +9,7 @@ import {
   padding,
   pointHoveredWidth,
   pointWidth,
+  settings,
   width,
 } from "./state";
 import { updateText } from "./text";
@@ -17,6 +18,8 @@ import { clamp } from "./utils";
 export const setupListeners = () => {
   mouseMoveSetup();
   resetButtonSetup();
+  showNamesSetup();
+  snapSetup();
 };
 
 const mouseMoveSetup = () => {
@@ -90,5 +93,22 @@ const resetButtonSetup = () => {
     initHandles();
     updateCanvas();
     updateText(getNormalisedHandles());
+  };
+};
+
+const showNamesSetup = () => {
+  const showNames = document.getElementById("show-names") as HTMLInputElement;
+  settings.showNames = showNames.checked;
+  showNames.onchange = () => {
+    settings.showNames = showNames.checked;
+    updateCanvas();
+  };
+};
+
+const snapSetup = () => {
+  const snap = document.getElementById("snap") as HTMLInputElement;
+  settings.snap = snap.checked;
+  snap.onchange = () => {
+    settings.snap = snap.checked;
   };
 };

@@ -4,7 +4,7 @@ import { setupListeners } from "./events";
 import { updateText } from "./text";
 import { getNormalisedHandles, initHandles } from "./state";
 
+setupListeners();
 initHandles();
 initCanvas();
 updateText(getNormalisedHandles());
-setupListeners();

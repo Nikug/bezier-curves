@@ -11,3 +11,8 @@ export interface Handle {
   position: Vector2;
   size: number;
 }
+
+export interface Settings {
+  showNames: boolean;
+  snap: boolean;
+}

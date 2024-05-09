@@ -8,6 +8,7 @@ import {
   handles,
   bezierHandles,
   bezierResolution,
+  settings,
 } from "./state";
 import { Handle, Vector2 } from "./types";
 import { bezierCubic } from "./utils";
@@ -128,4 +129,14 @@ const drawPoint = (handle: Handle, color: string) => {
   context.stroke();
   context.fill();
   context.closePath();
+
+  if (settings.showNames) {
+    context.beginPath();
+    context.fillStyle = colors.text;
+    const currentFont = context.font.split(" ").at(-1);
+    context.font = `bold 1rem ${currentFont}`;
+    context.fillText(handle.id, handle.position.x + 10, handle.position.y - 10);
+    context.fill();
+    context.closePath();
+  }
 };
