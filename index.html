@@ -6,8 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
   </head>
-  <body>
-    <div id="app"></div>
+  <body class="text-slate-600">
+    <div id="app" class="h-screen w-screen bg-blue-50 overflow-hidden">
+      <h1 class="text-center text-3xl">Bezier Curves</h1>
+      <div
+        class="max-w-4xl mx-auto h-full flex flex-col justify-center items-center"
+      >
+        <div class="border border-slate-300 mb-4 rounded overflow-hidden">
+          <canvas
+            id="canvas"
+            class="bg-white"
+            width="600"
+            height="600"
+          ></canvas>
+        </div>
+        <p id="variables">Some text here</p>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
