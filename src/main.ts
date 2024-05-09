@@ -1,5 +1,7 @@
 import "./style.css";
-import { setupCanvas } from "./canvas";
+import { initCanvas } from "./canvas";
+import { setupListeners } from "./events";
 
 const text = document.getElementById("variables") as HTMLParagraphElement;
-setupCanvas();
+initCanvas();
+setupListeners();
