@@ -10,8 +10,12 @@ export const width = canvas.width - padding * 2;
 export const height = canvas.height - padding * 2;
 export const bezierResolution = 50;
 
-export const handles: Record<number, Handle> = {
-  0: {
+export const handles: Record<number, Handle> = {};
+
+export const bezierHandles: Record<number, Handle> = {};
+
+export const initHandles = () => {
+  handles[0] = {
     id: "p0",
     state: "chilling",
     size: pointWidth,
@@ -19,8 +23,8 @@ export const handles: Record<number, Handle> = {
       x: padding,
       y: height + padding,
     },
-  },
-  1: {
+  };
+  handles[1] = {
     id: "p1",
     state: "chilling",
     size: pointWidth,
@@ -28,11 +32,8 @@ export const handles: Record<number, Handle> = {
       x: width + padding,
       y: padding,
     },
-  },
-};
-
-export const bezierHandles: Record<number, Handle> = {
-  0: {
+  };
+  bezierHandles[0] = {
     id: "b0",
     state: "chilling",
     size: pointWidth,
@@ -40,8 +41,8 @@ export const bezierHandles: Record<number, Handle> = {
       x: width / 6 + padding,
       y: height / 2 + padding,
     },
-  },
-  1: {
+  };
+  bezierHandles[1] = {
     id: "b1",
     state: "chilling",
     size: pointWidth,
@@ -49,7 +50,7 @@ export const bezierHandles: Record<number, Handle> = {
       x: width + padding - width / 6,
       y: height / 2 + padding,
     },
-  },
+  };
 };
 
 const copyHandle = (handle: Handle): Handle => {

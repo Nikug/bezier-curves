@@ -5,6 +5,7 @@ import {
   getNormalisedHandles,
   handles,
   height,
+  initHandles,
   padding,
   pointHoveredWidth,
   pointWidth,
@@ -15,6 +16,7 @@ import { clamp } from "./utils";
 
 export const setupListeners = () => {
   mouseMoveSetup();
+  resetButtonSetup();
 };
 
 const mouseMoveSetup = () => {
@@ -80,4 +82,13 @@ const mouseMoveSetup = () => {
     updateCanvas();
     updateText(getNormalisedHandles());
   });
+};
+
+const resetButtonSetup = () => {
+  const resetButton = document.getElementById("reset") as HTMLButtonElement;
+  resetButton.onclick = () => {
+    initHandles();
+    updateCanvas();
+    updateText(getNormalisedHandles());
+  };
 };
