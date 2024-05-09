@@ -7,8 +7,10 @@ import {
   padding,
   handles,
   bezierHandles,
+  bezierResolution,
 } from "./state";
 import { Handle, Vector2 } from "./types";
+import { bezierCubic } from "./utils";
 const context = canvas.getContext("2d")!;
 
 export const initCanvas = () => {
@@ -48,7 +50,8 @@ const createGrid = () => {
 };
 
 const drawHandles = () => {
-  drawLineBetweenHandles();
+  // drawLineBetweenHandles();
+  drawBezierCurveBetweenHandles();
   for (const handle of Object.values(handles)) {
     drawPoint(handle, colors.blue);
   }
@@ -81,6 +84,28 @@ const drawLineBetweenHandles = () => {
   context.strokeStyle = colors.blue;
   context.lineWidth = 4;
   context.moveTo(handles[0].position.x, handles[0].position.y);
+  context.lineTo(handles[1].position.x, handles[1].position.y);
+  context.stroke();
+  context.closePath();
+};
+
+const drawBezierCurveBetweenHandles = () => {
+  context.beginPath();
+  context.strokeStyle = colors.blue;
+  context.lineWidth = 4;
+  context.moveTo(handles[0].position.x, handles[0].position.y);
+  for (let i = 0; i < bezierResolution; ++i) {
+    const step = i / bezierResolution;
+    const position = bezierCubic(
+      handles[0].position,
+      bezierHandles[0].position,
+      bezierHandles[1].position,
+      handles[1].position,
+      step,
+    );
+
+    context.lineTo(position.x, position.y);
+  }
   context.lineTo(handles[1].position.x, handles[1].position.y);
   context.stroke();
   context.closePath();

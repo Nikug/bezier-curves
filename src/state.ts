@@ -8,6 +8,7 @@ export const pointWidth = 10;
 export const pointHoveredWidth = 15;
 export const width = canvas.width - padding * 2;
 export const height = canvas.height - padding * 2;
+export const bezierResolution = 50;
 
 export const handles: Record<number, Handle> = {
   0: {
@@ -72,7 +73,7 @@ export const getNormalisedHandles = () => {
   for (const handle of allHandles) {
     const copy = copyHandle(handle);
     copy.position.x = (copy.position.x - padding) / width;
-    copy.position.y = (copy.position.y - padding) / height;
+    copy.position.y = 1 - (copy.position.y - padding) / height;
     normalisedHandles.push(copy);
   }
 
