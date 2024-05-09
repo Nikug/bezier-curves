@@ -27,3 +27,22 @@ export const handles: Record<number, Handle> = {
     },
   },
 };
+
+export const bezierHandles: Record<number, Handle> = {
+  0: {
+    state: "chilling",
+    size: pointWidth,
+    position: {
+      x: width / 6 + padding,
+      y: height / 2 + padding,
+    },
+  },
+  1: {
+    state: "chilling",
+    size: pointWidth,
+    position: {
+      x: width + padding - width / 6,
+      y: height / 2 + padding,
+    },
+  },
+};

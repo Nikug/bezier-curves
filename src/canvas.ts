@@ -1,6 +1,14 @@
 import { colors } from "./colors";
-import { canvas, width, height, lines, padding, handles } from "./state";
-import { Handle } from "./types";
+import {
+  canvas,
+  width,
+  height,
+  lines,
+  padding,
+  handles,
+  bezierHandles,
+} from "./state";
+import { Handle, Vector2 } from "./types";
 const context = canvas.getContext("2d")!;
 
 export const initCanvas = () => {
@@ -10,6 +18,7 @@ export const initCanvas = () => {
 export const updateCanvas = () => {
   context.clearRect(0, 0, canvas.width, canvas.height);
   createGrid();
+  drawBezierHandles();
   drawHandles();
 };
 
@@ -17,7 +26,7 @@ const createGrid = () => {
   const widthStep = width / lines;
   const heightStep = height / lines;
 
-  context.strokeStyle = colors.gray;
+  context.strokeStyle = colors["light-gray"];
   context.lineWidth = 2;
 
   context.beginPath();
@@ -41,8 +50,30 @@ const createGrid = () => {
 const drawHandles = () => {
   drawLineBetweenHandles();
   for (const handle of Object.values(handles)) {
-    drawPoint(handle);
+    drawPoint(handle, colors.blue);
   }
+};
+
+const drawBezierHandles = () => {
+  for (const handleId in bezierHandles) {
+    drawDashedLine(
+      bezierHandles[handleId].position,
+      handles[handleId].position,
+    );
+    drawPoint(bezierHandles[handleId], colors.pink);
+  }
+};
+
+const drawDashedLine = (a: Vector2, b: Vector2) => {
+  context.beginPath();
+  context.strokeStyle = colors.gray;
+  context.setLineDash([10]);
+  context.lineWidth = 4;
+  context.moveTo(a.x, a.y);
+  context.lineTo(b.x, b.y);
+  context.stroke();
+  context.closePath();
+  context.setLineDash([]);
 };
 
 const drawLineBetweenHandles = () => {
@@ -55,9 +86,9 @@ const drawLineBetweenHandles = () => {
   context.closePath();
 };
 
-const drawPoint = (handle: Handle) => {
+const drawPoint = (handle: Handle, color: string) => {
   context.beginPath();
-  context.strokeStyle = colors.blue;
+  context.strokeStyle = color;
   context.lineWidth = 4;
   context.fillStyle = colors.white;
 

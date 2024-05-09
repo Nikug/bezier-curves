@@ -1,5 +1,6 @@
 import { updateCanvas } from "./canvas";
 import {
+  bezierHandles,
   canvas,
   handles,
   height,
@@ -24,6 +25,29 @@ const mouseMoveSetup = () => {
 
     for (const handleId in handles) {
       const handle = handles[handleId];
+      const distanceToHandle = Math.hypot(
+        x - handle.position.x,
+        y - handle.position.y,
+      );
+
+      if (distanceToHandle < handle.size / 2 || handle.state === "dragging") {
+        if (mouseDown) {
+          handle.state = "dragging";
+          handle.size = pointHoveredWidth;
+          handle.position.x = clampedX;
+          handle.position.y = clampedY;
+        } else {
+          handle.state = "hovering";
+          handle.size = pointHoveredWidth;
+        }
+      } else {
+        handle.state = "chilling";
+        handle.size = pointWidth;
+      }
+    }
+
+    for (const handleId in bezierHandles) {
+      const handle = bezierHandles[handleId];
       const distanceToHandle = Math.hypot(
         x - handle.position.x,
         y - handle.position.y,
